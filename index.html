@@ -252,14 +252,13 @@
 
         /* Cara trasera (carta antigua) */
         .polaroid-back {
-            background: #f8f1e3; /* tono pergamino */
+            background: #f8f1e3;
             transform: rotateY(180deg);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 18px 14px;
             border: 1px solid #d4c4a8;
-            /* Patrón sutil de pétalos morados */
             background-image: 
                 radial-gradient(circle at 15% 20%, rgba(138, 43, 226, 0.18) 0%, transparent 12%),
                 radial-gradient(circle at 85% 25%, rgba(148, 0, 211, 0.15) 0%, transparent 14%),
@@ -390,6 +389,11 @@
 </head>
 <body>
 
+    <!-- Audio de fondo (solo suena en la segunda página y en bucle) -->
+    <audio id="musicaFondo" loop preload="auto">
+        <source src="nuts.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Fondo animado -->
     <div class="petalos-fondo" id="fondo"></div>
 
@@ -503,6 +507,7 @@
         const ramo = document.getElementById('ramo');
         const flores = document.querySelectorAll('.flor-item');
         const btnCarga = document.getElementById('btnCarga');
+        const musica = document.getElementById('musicaFondo');
 
         function cargarRamo() {
             if (clics >= maxClics) return;
@@ -558,6 +563,12 @@
             const escenaInicial = document.getElementById('escena-inicial');
             const contenido = document.getElementById('contenido');
             const textoHTML = document.getElementById('texto');
+
+            // Reproducir la música solo cuando se abre la segunda página (en bucle)
+            musica.volume = 0.4; // Volumen suave (0.0 a 1.0)
+            musica.play().catch(error => {
+                console.log("No se pudo reproducir el audio automáticamente:", error);
+            });
 
             crearParticulas();
 
@@ -617,6 +628,3 @@
     </script>
 </body>
 </html>
-
-
-
